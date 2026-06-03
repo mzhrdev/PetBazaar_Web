@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from './Button';
 
 interface PetCardProps {
-  id: number;
+  id: string;
   name: string;
   breed: string;
   price: number;

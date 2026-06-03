@@ -3,20 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button, PetCard } from '@/shared/components';
-import { petsModel, type Pet } from '@/features/pets/model/petsModel';
+import { usePetsViewModel } from '@/features/pets/view_model/usePetsViewModel';
 
 export default function Home() {
-  const [pets, setPets] = React.useState<Pet[]>([]);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const fetch = async () => {
-      const data = await petsModel.getAllPets();
-      setPets(data.slice(0, 6)); // Show 6 featured pets
-      setLoading(false);
-    };
-    fetch();
-  }, []);
+  const { pets, loading } = usePetsViewModel();
+  const featuredPets = pets.slice(0, 6);
 
   return (
     <div className="w-full">
@@ -59,16 +50,16 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {pets.map(pet => (
+            {featuredPets.map(pet => (
               <PetCard
                 key={pet.id}
                 id={pet.id}
                 name={pet.name}
                 breed={pet.breed}
                 price={pet.price}
-                image={pet.image}
-                location={pet.location}
-                seller={pet.seller}
+                image={pet.images?.[0]?.url || '/placeholder.png'}
+                location={pet.seller?.city || 'Unknown Location'}
+                seller={pet.seller?.full_name || 'Unknown Seller'}
               />
             ))}
           </div>

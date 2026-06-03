@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useAuthViewModel } from '../view_model/useAuthViewModel';
 import { Input, Button } from '@/shared/components';
 
@@ -76,12 +77,12 @@ export const LoginForm: React.FC = () => {
         </Button>
       </form>
 
-      <div className="text-center text-sm text-gray-600">
-        Don't have an account?{' '}
-        <a href="/register" className="text-blue-600 hover:text-blue-700 font-semibold">
+      <p className="text-center text-sm text-gray-600 mt-6">
+        Don&apos;t have an account?{' '}
+        <Link href="/register" className="font-semibold text-green-600 hover:text-green-500 hover:underline transition-all">
           Create one
-        </a>
-      </div>
+        </Link>
+      </p>
     </div>
   );
 };
